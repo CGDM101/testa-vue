@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-
+import { ref, reactive } from 'vue'
 
 const questions = [
   {
@@ -46,22 +45,30 @@ const showScore = ref(false)
 const score = ref(0)
 
 const handleAnswerButtonClick = () => {
-  alert('du klickade opt1' + 'du har ' + score.value + 'poäng')
-
-  const nextQuestion = currentQuestion + 1
+  if(currentQuestion.value < questions.length) {
+    currentQuestion.value++ // funkar
+    score.value++ // WIP: blir alltid inkrementerat även om de svarar fel
+    alert('du klickade opt1' + 'du har ' + score.value + 'poäng') // TODO: Opt1 ska inte vara hårdkodat
+  } else {
+    alert('out of range') // TODO: Visa sista vy i stället f alert: showScore(true)  
+    console.log(score.value)
+    console.log(currentQuestion.value)
+  }
 }
+
 </script>
 
+// div score-section ska bara synas om showScore(true)
 <template>
-  <header>DM-quiz</header>
+  <header>Camillas quiz</header>
   <main>
     <div class="score-section">du har {{ score }} poäng av {{ questions.length }} poäng</div>
     <div class="question-section">
       <div class="question-count">fråga {{ currentQuestion +1 }} av {{ questions.length }}</div>
-      <div class="question-text">{{ questions[0].questionText }}</div>
+      <div class="question-text">{{ questions[currentQuestion].questionText }}</div>
     </div>
     <div class="answer-section"> 
-      <button v-for="opt in questions[0].answerOptions">{{ opt.answerText }}</button>
+      <button @click="handleAnswerButtonClick" v-for="opt in questions[currentQuestion].answerOptions" >{{ opt.answerText }}</button>
     </div>
   </main>
 </template>
