@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive } from 'vue'
-
 const questions = [
   {
     questionText: "What is the capital of France?",
@@ -44,18 +43,21 @@ const currentQuestion = ref(0)
 const showScore = ref(false)
 const score = ref(0)
 
-const handleAnswerButtonClick = () => {
+const handleAnswerButtonClick = (opt) => {
   if(currentQuestion.value < questions.length) {
-    currentQuestion.value++ // funkar
-    score.value++ // WIP: blir alltid inkrementerat även om de svarar fel
-    alert('du klickade opt1' + 'du har ' + score.value + 'poäng') // TODO: Opt1 ska inte vara hårdkodat
+    currentQuestion.value++
+    if(opt.isCorrect == true) { // går inte in i denna loop
+      score.value++
+      console.log(score.value)
+      console.log(currentQuestion.value)  
+    }
+    alert('du klickade' + opt + 'du har ' + score.value + 'poäng') // TODO: Opt blir "true"/"false"
   } else {
-    alert('out of range') // TODO: Visa sista vy i stället f alert: showScore(true)  
+    alert('You reached the end of the quiz') // TODO: Visa sista vy i stället f alert: showScore(true)  
     console.log(score.value)
     console.log(currentQuestion.value)
   }
 }
-
 </script>
 
 // div score-section ska bara synas om showScore(true)
@@ -68,7 +70,7 @@ const handleAnswerButtonClick = () => {
       <div class="question-text">{{ questions[currentQuestion].questionText }}</div>
     </div>
     <div class="answer-section"> 
-      <button @click="handleAnswerButtonClick" v-for="opt in questions[currentQuestion].answerOptions" >{{ opt.answerText }}</button>
+      <button @click="handleAnswerButtonClick(opt.isCorrect)" v-for="opt in questions[currentQuestion].answerOptions" >{{ opt.answerText }}</button>
     </div>
   </main>
 </template>
