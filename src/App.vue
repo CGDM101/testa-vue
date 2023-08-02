@@ -44,33 +44,33 @@ const showScore = ref(false)
 const score = ref(0)
 
 const handleAnswerButtonClick = (opt) => {
-  if(currentQuestion.value < questions.length) {
+  if (currentQuestion.value < questions.length) {
     currentQuestion.value++
-    if(opt.isCorrect == true) { // går inte in i denna loop
+    if (opt.isCorrect == true) { // går inte in i denna loop
       score.value++
       console.log(score.value)
-      console.log(currentQuestion.value)  
+      console.log(currentQuestion.value)
     }
-    alert('du klickade' + opt + 'du har ' + score.value + 'poäng') // TODO: Opt blir "true"/"false"
+    alert('du klickade' + opt + 'du har ' + score.value + 'poäng') // TODO: Opt skrivs ut som "true"/"false"
   } else {
-    alert('You reached the end of the quiz') // TODO: Visa sista vy i stället f alert: showScore(true)  
+    alert('You reached the end of the quiz') // TODO: showScore(true) och visa "div score-section"
     console.log(score.value)
     console.log(currentQuestion.value)
   }
 }
 </script>
 
-// div score-section ska bara synas om showScore(true)
 <template>
   <header>Camillas quiz</header>
   <main>
     <div class="score-section">du har {{ score }} poäng av {{ questions.length }} poäng</div>
     <div class="question-section">
-      <div class="question-count">fråga {{ currentQuestion +1 }} av {{ questions.length }}</div>
+      <div class="question-count">fråga {{ currentQuestion + 1 }} av {{ questions.length }}</div>
       <div class="question-text">{{ questions[currentQuestion].questionText }}</div>
     </div>
-    <div class="answer-section"> 
-      <button @click="handleAnswerButtonClick(opt.isCorrect)" v-for="opt in questions[currentQuestion].answerOptions" >{{ opt.answerText }}</button>
+    <div class="answer-section">
+      <button @click="handleAnswerButtonClick(opt.isCorrect)" v-for="opt in questions[currentQuestion].answerOptions">{{
+        opt.answerText }}</button>
     </div>
   </main>
 </template>
