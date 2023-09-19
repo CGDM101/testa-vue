@@ -61,7 +61,7 @@ const handleAnswerButtonClick = (opt) => {
 
 <template>
   <header></header>
-  <main>
+  <main class="app">
     <!-- <div class="score-section">You scored {{ score }} out of {{ questions.length }} </div> -->
     <div class="question-section">
       <div class="question-count">
