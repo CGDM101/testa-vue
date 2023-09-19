@@ -64,8 +64,8 @@ const handleAnswerButtonClick = (opt) => {
   <main class="app">
     <!-- <div class="score-section">You scored {{ score }} out of {{ questions.length }} </div> -->
     <div class="question-section">
-      <div class="question-count">
-        Question {{ currentQuestion + 1 }} / {{ questions.length }}
+      <div class="question-count"><span>Question {{ currentQuestion + 1 }}</span>
+        / {{ questions.length }}
       </div>
       <div class="question-text">
         {{ questions[currentQuestion].questionText }}
