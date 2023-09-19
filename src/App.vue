@@ -44,28 +44,27 @@ const showScore = ref(false)
 const score = ref(0)
 
 const handleAnswerButtonClick = (opt) => {
-  if (currentQuestion.value < questions.length) {
+  if (currentQuestion.value < questions.length - 1) {
     currentQuestion.value++
-    if (opt.isCorrect == true) { // går inte in i denna loop
+    console.log('score: ', score.value)
+    if (opt == true) { // Går ej in i loopen om opt.isCorrect?
+      console.log('de klickade rätt')
       score.value++
-      console.log(score.value)
-      console.log(currentQuestion.value)
+    } else if (opt == false) {
+      console.log('de klickade fel')
     }
-    alert('du klickade' + opt + 'du har ' + score.value + 'poäng') // TODO: Opt skrivs ut som "true"/"false"
   } else {
-    alert('You reached the end of the quiz') // TODO: showScore(true) och visa "div score-section"
-    console.log(score.value)
-    console.log(currentQuestion.value)
+    console.log('end of the quiz, total score: ', score.value) // TODO: showScore(true) och visa "div score-section"
   }
 }
 </script>
 
 <template>
-  <header>Camillas quiz</header>
+  <header></header>
   <main>
-    <div class="score-section">du har {{ score }} poäng av {{ questions.length }} poäng</div>
+    <!-- <div class="score-section">You scored {{ score }} out of {{ questions.length }} </div> -->
     <div class="question-section">
-      <div class="question-count">fråga {{ currentQuestion + 1 }} av {{ questions.length }}</div>
+      <div class="question-count">Question {{ currentQuestion + 1 }} / {{ questions.length }}</div>
       <div class="question-text">{{ questions[currentQuestion].questionText }}</div>
     </div>
     <div class="answer-section">
