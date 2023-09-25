@@ -46,15 +46,16 @@ const score = ref(0)
 const handleAnswerButtonClick = (opt) => {
   if (currentQuestion.value < questions.length - 1) {
     currentQuestion.value++
-    if (opt == true) { // Går ej in i loopen om opt.isCorrect?
-      score.value++
-    } else if (opt == false) { }
-    console.log("score: ", score.value)
-  } else { // om currQ > questions.Length
     if (opt == true) {
       score.value++
     } else if (opt == false) { }
-    console.log("end of the quiz, total score: ", score.value) // TODO: showScore(true) och visa "div score-section"
+    console.log("score: ", score.value)
+  } else { // else if currQ > questions.Length, då skrivs inte end of quiz ut???  
+    if (opt == true) {
+      score.value++
+    } else if (opt == false) { }
+    console.log("end of the quiz, total score: ", score.value)
+    showScore.value = ref(true)
   }
 }
 </script>
@@ -62,19 +63,21 @@ const handleAnswerButtonClick = (opt) => {
 <template>
   <header></header>
   <main class="app">
-    <!-- <div class="score-section">You scored {{ score }} out of {{ questions.length }} </div> -->
-    <div class="question-section">
-      <div class="question-count"><span>Question {{ currentQuestion + 1 }}</span>
-        / {{ questions.length }}
+    <div v-if="showScore" class="score-section">You scored {{ score }} out of {{ questions.length }} </div>
+    <div class="app" v-else>
+      <div class="question-section">
+        <div class="question-count"><span>Question {{ currentQuestion + 1 }}</span>
+          / {{ questions.length }}
+        </div>
+        <div class="question-text">
+          {{ questions[currentQuestion].questionText }}
+        </div>
       </div>
-      <div class="question-text">
-        {{ questions[currentQuestion].questionText }}
+      <div class="answer-section">
+        <button @click="handleAnswerButtonClick(opt.isCorrect)" v-for="opt in questions[currentQuestion].answerOptions">
+          {{ opt.answerText }}
+        </button>
       </div>
-    </div>
-    <div class="answer-section">
-      <button @click="handleAnswerButtonClick(opt.isCorrect)" v-for="opt in questions[currentQuestion].answerOptions">
-        {{ opt.answerText }}
-      </button>
     </div>
   </main>
 </template>
