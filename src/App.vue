@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from "vue"
+import { ref } from "vue"
 const questions = [
   {
     questionText: "What is the capital of France?",
@@ -49,12 +49,10 @@ const handleAnswerButtonClick = (opt) => {
     if (opt == true) {
       score.value++
     } else if (opt == false) { }
-    console.log("score: ", score.value)
-  } else { // else if currQ > questions.Length, då skrivs inte end of quiz ut???  
+  } else {
     if (opt == true) {
       score.value++
     } else if (opt == false) { }
-    console.log("end of the quiz, total score: ", score.value)
     showScore.value = ref(true)
   }
 }
